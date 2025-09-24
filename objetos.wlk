@@ -17,10 +17,35 @@ object lionel {
 		position = game.at((game.width() - 1).min(position.x() + 1), position.y()) 
 	}
 	
+	method levantarla() {
+		self.validarEstaLionelConPelota()
+		pelota.picar()
+	}
+
+	// validador
+
+	method validarEstaLionelConPelota() {
+		if (pelota.position() != self.position()) {
+			self.error("La pelota está lejos de Lionel")
+		}
+	}
 }
 
 
 object pelota {
 	const property image="pelota.png"
-	var property position = game.at(5,5)	
+	var property position = game.at(5,5)
+
+	method bajar() {
+	  	position = position.down(1)
+	}
+
+	method subir() {
+	  	position = position.up(1)
+	}
+
+	method picar() {
+		self.subir()
+		game.schedule(2000, {self.bajar()})
+	}	
 }
