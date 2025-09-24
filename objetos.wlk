@@ -1,4 +1,4 @@
-/** First Wollok example */
+//Ejemplo de Wollok
 import wollok.game.*
 
 object lionel {
@@ -16,11 +16,32 @@ object lionel {
 	method avanzar() {
 		position = game.at((game.width() - 1).min(position.x() + 1), position.y()) 
 	}
+
+	method estaConLaPelota() {
+		return position == pelota.position()
+	}
+
+	method validarEstaConLaPelota() {
+		if (not self.estaConLaPelota()) {
+			self.error("Lionel no está con la pelota")
+		}
+	}
+
+	method patearPelota() {
+		self.validarEstaConLaPelota()
+		pelota.patear()
+	}
 	
 }
 
 
 object pelota {
 	const property image="pelota.png"
-	var property position = game.at(5,5)	
+	var property position = game.at(5,5)
+
+	//Metodos funcionales
+
+	method patear() {
+		position = game.at((game.width()-1).min(position.x()+3), 5)
+	}	
 }

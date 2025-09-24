@@ -1,0 +1,22 @@
+import objetos.*
+import wollok.game.*
+
+describe "Lionel y Pelota" {
+    method initialize() {
+    game.cellSize(40)
+	game.width(15)
+	game.height(10)
+    lionel.position(game.at(0,5))
+    pelota.position(game.at(0,5))
+    }
+
+    test "Leo patea la pelota" {
+        lionel.patearPelota()
+        assert.equals(game.at(3,5), pelota.position())
+    }
+
+    test "Leo no puede patear la pelota" {
+        lionel.position(lionel.position().right(1))
+        assert.throwsException({ lionel.patearPelota() })
+    }
+}
