@@ -12,6 +12,9 @@ program futbolito{
 	keyboard.left().onPressDo({lionel.retroceder()})
 	keyboard.right().onPressDo({lionel.avanzar()})
 
+	// Acciones
+	keyboard.c().onPressDo({lionel.cambiarEstado()})
+
 	game.start()
 
 

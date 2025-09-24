@@ -1,0 +1,18 @@
+import objetos.*
+import game.*
+
+describe "Tests de Lionel"{
+    method initialize() {
+      	game.cellSize(40)
+	    game.width(15)
+	    game.height(10)
+        lionel.position(game.at(0, 5))
+    }
+
+    test "Cambio de camiseta"{
+        assert.doesNotThrowException({lionel.cambiarEstado()})
+        lionel.position(game.at(1, 5))
+        assert.throwsException({lionel.cambiarEstado()})
+    }
+
+}
