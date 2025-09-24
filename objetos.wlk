@@ -1,12 +1,13 @@
-/** First Wollok example */
+//Ejemplo de Wollok
 import wollok.game.*
 
 object lionel {
+	var estado = titular
 	
 	var property position = game.at(3,5)
 	
 	method image() {
-		return "lionel-titular.png"
+		return estado.imagen()
 	}
 
 	method retroceder() {
@@ -16,17 +17,35 @@ object lionel {
 	method avanzar() {
 		position = game.at((game.width() - 1).min(position.x() + 1), position.y()) 
 	}
-	
+
+	method estaConLaPelota() {
+		return position == pelota.position()
+	}
+
+	method validarEstaConLaPelota() {
+		if (not self.estaConLaPelota()) {
+			self.error("Lionel no está con la pelota")
+		}
+	}
+
+	method patearPelota() {
+		self.validarEstaConLaPelota()
+		pelota.patear()
+	}
+
 	method levantarla() {
-		self.validarEstaLionelConPelota()
+		self.validarEstaConLaPelota()
 		pelota.picar()
 	}
 
-	// validador
+	method cambiarEstado(){
+		self.validarCambioDeCamiseta()
+		estado = estado.opuesto()
+	}
 
-	method validarEstaLionelConPelota() {
-		if (pelota.position() != self.position()) {
-			self.error("La pelota está lejos de Lionel")
+	method validarCambioDeCamiseta(){
+		if (not(self.position().x() == 0)){
+			self.error("Lionel no puede cambiar de camiseta en este lugar")
 		}
 	}
 }
@@ -47,5 +66,23 @@ object pelota {
 	method picar() {
 		self.subir()
 		game.schedule(2000, {self.bajar()})
+	}
+
+	//Metodos funcionales
+
+	method patear() {
+		position = game.at((game.width()-1).min(position.x()+3), 5)
 	}	
+}
+
+object titular{
+	const opuesto = suplente
+	method imagen() = "lionel-titular.png"
+	method opuesto() = opuesto
+}
+
+object suplente{
+	const opuesto = titular
+	method imagen() = "lionel-suplente.png"
+	method opuesto() = opuesto
 }
