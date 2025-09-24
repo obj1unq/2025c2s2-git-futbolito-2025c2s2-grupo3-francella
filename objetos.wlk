@@ -18,6 +18,11 @@ object lionel {
 		position = game.at((game.width() - 1).min(position.x() + 1), position.y()) 
 	}
 
+	method hacerTaquito() {
+	    self.validarEstaConLaPelota()
+	    pelota.taquito()
+	}
+
 	method estaConLaPelota() {
 		return position == pelota.position()
 	}
@@ -52,9 +57,13 @@ object lionel {
 
 
 object pelota {
-	const property image="pelota.png"
-	var property position = game.at(5,5)
+	const property image  = "pelota.png"
+	var property position = game.at(5,5)	
 
+	method taquito() {
+	  position = game.at((position.x() - 2).max(0), position.y())
+	}
+	
 	method bajar() {
 	  	position = position.down(1)
 	}
@@ -67,8 +76,6 @@ object pelota {
 		self.subir()
 		game.schedule(2000, {self.bajar()})
 	}
-
-	//Metodos funcionales
 
 	method patear() {
 		position = game.at((game.width()-1).min(position.x()+3), 5)
