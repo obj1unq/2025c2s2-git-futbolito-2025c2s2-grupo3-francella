@@ -19,4 +19,11 @@ describe "Lionel y Pelota" {
         lionel.position(lionel.position().right(1))
         assert.throwsException({ lionel.patearPelota() })
     }
+
+    test "Cambio de camiseta"{
+        assert.doesNotThrowException({lionel.cambiarEstado()})
+        lionel.position(game.at(1, 5))
+        assert.throwsException({lionel.cambiarEstado()})
+    }
+
 }
