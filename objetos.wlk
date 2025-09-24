@@ -32,12 +32,17 @@ object lionel {
 		self.validarEstaConLaPelota()
 		pelota.patear()
 	}
-	
+
+	method levantarla() {
+		self.validarEstaConLaPelota()
+		pelota.picar()
+	}
+
 	method cambiarEstado(){
 		self.validarCambioDeCamiseta()
 		estado = estado.opuesto()
 	}
-	
+
 	method validarCambioDeCamiseta(){
 		if (not(self.position().x() == 0)){
 			self.error("Lionel no puede cambiar de camiseta en este lugar")
@@ -49,6 +54,19 @@ object lionel {
 object pelota {
 	const property image="pelota.png"
 	var property position = game.at(5,5)
+
+	method bajar() {
+	  	position = position.down(1)
+	}
+
+	method subir() {
+	  	position = position.up(1)
+	}
+
+	method picar() {
+		self.subir()
+		game.schedule(2000, {self.bajar()})
+	}
 
 	//Metodos funcionales
 
